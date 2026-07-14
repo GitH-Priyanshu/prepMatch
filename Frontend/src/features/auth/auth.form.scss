@@ -1,0 +1,267 @@
+$bg-primary: #08090a;
+$bg-secondary: #0f1012;
+$bg-tertiary: #16171a;
+$border-color: #1f2124;
+$text-primary: #e6e8eb;
+$text-secondary: #9aa0a6;
+$text-muted: #5e6266;
+$accent-primary: #5850ec;
+$accent-primary-hover: #4f46e5;
+$accent-danger: #ef4444;
+
+.auth-split-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: $bg-primary;
+}
+
+// Brand / testimonial side (left)
+.auth-brand-side {
+    flex: 1.1;
+    background: linear-gradient(145deg, #090a0b 0%, #101114 100%);
+    border-right: 1px solid $border-color;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(88, 80, 236, 0.08) 0%, transparent 70%);
+        top: -50px;
+        left: -50px;
+    }
+
+    .brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #ffffff;
+        z-index: 2;
+        cursor: pointer;
+
+        .logo-icon {
+            color: $accent-primary;
+        }
+    }
+
+    .brand-testimonial {
+        z-index: 2;
+        max-width: 480px;
+
+        .quote-icon {
+            color: rgba(255,255,255,0.05);
+            margin-bottom: 1rem;
+            display: flex;
+        }
+
+        blockquote {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+        }
+
+        .author {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+
+            .name {
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: $text-primary;
+            }
+
+            .role {
+                font-size: 0.75rem;
+                color: $text-muted;
+            }
+        }
+    }
+
+    .brand-footer {
+        font-size: 0.75rem;
+        color: $text-muted;
+        z-index: 2;
+    }
+}
+
+// Form side (right)
+.auth-form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+
+    .form-container {
+        width: 100%;
+        max-width: 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+
+        .form-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            h1 {
+                font-size: 1.75rem;
+                font-weight: 700;
+                color: #ffffff;
+                letter-spacing: -0.02em;
+            }
+
+            p {
+                font-size: 0.875rem;
+                color: $text-secondary;
+            }
+        }
+    }
+
+    // Google OAuth button
+    .oauth-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        background-color: $bg-secondary;
+        border: 1px solid $border-color;
+        color: $text-primary;
+        padding: 0.65rem 1.25rem;
+        border-radius: 8px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        &:hover {
+            background-color: $bg-tertiary;
+            border-color: #2e3035;
+        }
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: $text-muted;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+
+        &::before, &::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid $border-color;
+        }
+
+        &:not(:empty)::before {
+            margin-right: .75em;
+        }
+
+        &:not(:empty)::after {
+            margin-left: .75em;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+
+        label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: $text-secondary;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        input {
+            background-color: $bg-secondary;
+            border: 1px solid $border-color;
+            outline: none;
+            padding-inline: 1rem;
+            padding-block: 0.65rem;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+
+            &::placeholder {
+                color: $text-muted;
+            }
+
+            &:focus {
+                border-color: $accent-primary;
+                background-color: $bg-tertiary;
+                box-shadow: 0 0 0 2px rgba(88, 80, 236, 0.15);
+            }
+        }
+    }
+
+    .error-card {
+        padding: 0.75rem 1rem;
+        background-color: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        border-radius: 8px;
+        color: #fca5a5;
+        font-size: 0.75rem;
+        line-height: 1.4;
+        font-weight: 500;
+    }
+
+    .form-footer {
+        font-size: 0.875rem;
+        color: $text-secondary;
+        text-align: center;
+        margin-top: 0.5rem;
+
+        a {
+            font-weight: 600;
+            color: $accent-primary;
+
+            &:hover {
+                color: $accent-primary-hover;
+            }
+        }
+    }
+}
+
+@media (max-width: 850px) {
+    .auth-brand-side {
+        display: none;
+    }
+    .auth-form-side {
+        padding: 1.5rem;
+    }
+}
