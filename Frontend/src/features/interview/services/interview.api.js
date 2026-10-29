@@ -1,10 +1,25 @@
 import axios from "axios";
 
+const getApiBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || "/"
+    if (url !== "/" && !url.startsWith("http://") && !url.startsWith("https://")) {
+        url = `https://${url}`
+    }
+    return url
+}
+
 const api = axios.create({
-    baseURL: "/",
+    baseURL: getApiBaseUrl(),
     withCredentials: true,
 })
 
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
 
 /**
  * @description Service to generate interview report based on user self description, resume and job description.

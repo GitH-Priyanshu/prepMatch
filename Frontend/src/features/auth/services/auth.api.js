@@ -1,9 +1,24 @@
 import axios from "axios"
 
+const getApiBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || "/"
+    if (url !== "/" && !url.startsWith("http://") && !url.startsWith("https://")) {
+        url = `https://${url}`
+    }
+    return url
+}
 
 const api = axios.create({
-    baseURL: "/",
+    baseURL: getApiBaseUrl(),
     withCredentials: true
+})
+
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
 })
 
 export async function register({ username, email, password }) {
@@ -12,6 +27,10 @@ export async function register({ username, email, password }) {
         const response = await api.post('/api/auth/register', {
             username, email, password
         })
+
+        if (response.data?.token) {
+            localStorage.setItem("token", response.data.token)
+        }
 
         return response.data
 
@@ -30,6 +49,10 @@ export async function login({ email, password }) {
             email, password
         })
 
+        if (response.data?.token) {
+            localStorage.setItem("token", response.data.token)
+        }
+
         return response.data
 
     } catch (err) {
@@ -43,11 +66,12 @@ export async function logout() {
     try {
 
         const response = await api.get("/api/auth/logout")
-
+        localStorage.removeItem("token")
         return response.data
 
     } catch (err) {
-
+        localStorage.removeItem("token")
+        throw err
     }
 }
 

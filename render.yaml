@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://render.com/schema/render.yaml.json
+services:
+  # Backend Web Service
+  - type: web
+    name: prepmatch-backend
+    runtime: node
+    plan: free
+    rootDir: Backend
+    buildCommand: chmod +x ./render-build.sh && ./render-build.sh
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GOOGLE_GENAI_API_KEY
+        sync: false
+      - key: CLIENT_URL
+        fromService:
+          type: web
+          name: prepmatch-frontend
+          property: host
+
+  # Frontend Static Site
+  - type: web
+    name: prepmatch-frontend
+    runtime: static
+    plan: free
+    rootDir: Frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: prepmatch-backend
+          property: host
