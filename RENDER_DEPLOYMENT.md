@@ -98,3 +98,4 @@ If you prefer to configure each service manually:
   ```
 - **Frontend App**:
   Visit `https://<your-frontend-name>.onrender.com` to test registration, login, and report generation.
+

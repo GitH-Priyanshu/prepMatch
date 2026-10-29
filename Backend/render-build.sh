@@ -15,3 +15,4 @@ else
   echo "...Restoring Puppeteer Cache from Render opt cache"
   cp -R "$PUPPETEER_CACHE_DIR"/* .cache/puppeteer/ 2>/dev/null || true
 fi
+
